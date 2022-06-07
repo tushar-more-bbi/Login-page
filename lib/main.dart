@@ -41,11 +41,9 @@ class LoginPageState extends State<LoginPage> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   final _formKey = GlobalKey<FormState>();
-   
-   TextEditingController emailController=TextEditingController();
-    TextEditingController passwordController=TextEditingController();
-   
-  
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   var mailformat = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -73,12 +71,13 @@ class LoginPageState extends State<LoginPage> {
             alignment: Alignment.bottomLeft,
             child: Column(children: [
               signIn(),
-              getInputFields(
-                  "Email address*", 'Enter email', mailformat, 'email',emailController),
-              getInputFields("Password*", 'Enter password',passformat,'password',passwordController),
+              getInputFields("Email address*", 'Enter email', mailformat,
+                  'email', emailController),
+              getInputFields("Password*", 'Enter password', passformat,
+                  'password', passwordController),
               button()
 
-              // Passwordfield(),
+              
             ]),
           ),
         ));
@@ -93,8 +92,8 @@ class LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget getInputFields(
-      String title, String placeholder, var format, String str,TextEditingController mycontroller) {
+  Widget getInputFields(String title, String placeholder, var format,
+      String str, TextEditingController mycontroller) {
     return Container(
       margin: const EdgeInsets.only(top: 10, bottom: 10),
       child: Column(
@@ -108,7 +107,7 @@ class LoginPageState extends State<LoginPage> {
           Container(
               margin: const EdgeInsets.only(top: 10),
               child: TextFormField(
-                controller: mycontroller,
+                  controller: mycontroller,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please fill the require fields';
@@ -118,13 +117,7 @@ class LoginPageState extends State<LoginPage> {
                     }
                     return null;
                   },
-                  // onSaved: (value) {
-                  //    // ignore: unused_local_variable
-                  //    name = value!;
-                  //    // ignore: avoid_print
-                  //    print(value);
-                  //   // ignore: avoid_print
-                  // },
+                  
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(35),
@@ -149,14 +142,8 @@ class LoginPageState extends State<LoginPage> {
             // Validate returns true if the form is valid, or false otherwise.
             if (_formKey.currentState!.validate()) {
               // ignore: avoid_print
-
-              // _formKey.currentState!.c();
-              // _formKey.currentState!.save();
-
-              // ignore: avoid_print
-              print('Login successful ${emailController.text} and ${passwordController.text}');
-              // ignore: avoid_print
-              // print('Time to post $email and $password to my API');
+              print(
+                  'Login successful ${emailController.text} and ${passwordController.text}');
             }
           },
           shape: RoundedRectangleBorder(
