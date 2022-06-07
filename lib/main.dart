@@ -1,8 +1,6 @@
-// ignore_for_file: deprecated_member_use, unnecessary_brace_in_string_interps
+// ignore_for_file: unnecessary_brace_in_string_interps, deprecated_member_use, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-// import 'package:loginpage/validation.dart';
-// import 'validation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,24 +41,11 @@ class LoginPageState extends State<LoginPage> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   final _formKey = GlobalKey<FormState>();
-
-  // late String email,password;
-  String email = '';
-  String password = '';
-  TextEditingController emailcontroller = TextEditingController();
-  TextEditingController passwordcontroller = TextEditingController();
    
-   getInput(){
-     setState(() {
-       email=emailcontroller.text;
-       password=passwordcontroller.text;
-     });
-   }
-  // void dispose(){
-  //   email.dispose();
-  //   password.dispose();
-  //   super.dispose();
-  // }
+   TextEditingController emailController=TextEditingController();
+    TextEditingController passwordController=TextEditingController();
+   
+  
 
   var mailformat = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -88,10 +73,9 @@ class LoginPageState extends State<LoginPage> {
             alignment: Alignment.bottomLeft,
             child: Column(children: [
               signIn(),
-              getInputFields("Email address*", 'Enter email', 'email',
-                  mailformat,emailcontroller),
-              getInputFields("Password*", 'Enter password', 'password',
-                  passformat,passwordcontroller),
+              getInputFields(
+                  "Email address*", 'Enter email', mailformat, 'email',emailController),
+              getInputFields("Password*", 'Enter password',passformat,'password',passwordController),
               button()
 
               // Passwordfield(),
@@ -110,7 +94,7 @@ class LoginPageState extends State<LoginPage> {
   }
 
   Widget getInputFields(
-      String title, String placeholder, String name, var format,var mycontroller) {
+      String title, String placeholder, var format, String str,TextEditingController mycontroller) {
     return Container(
       margin: const EdgeInsets.only(top: 10, bottom: 10),
       child: Column(
@@ -124,23 +108,23 @@ class LoginPageState extends State<LoginPage> {
           Container(
               margin: const EdgeInsets.only(top: 10),
               child: TextFormField(
-                  controller: mycontroller,
-                  // controller:name.controller;
-                  // The validator receives the text that the user has entered.
+                controller: mycontroller,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please fill the require fields';
                     }
                     if (!format.hasMatch(value)) {
-                      return 'Please enter a valid $name';
+                      return 'Please enter a valid $str';
                     }
                     return null;
                   },
-                  onSaved: (value) {
-                    name = value!;
-                  },
-                  //
-
+                  // onSaved: (value) {
+                  //    // ignore: unused_local_variable
+                  //    name = value!;
+                  //    // ignore: avoid_print
+                  //    print(value);
+                  //   // ignore: avoid_print
+                  // },
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(35),
@@ -162,14 +146,15 @@ class LoginPageState extends State<LoginPage> {
         child: RaisedButton(
           padding: const EdgeInsets.all(10.0),
           onPressed: () {
-            getInput();
             // Validate returns true if the form is valid, or false otherwise.
             if (_formKey.currentState!.validate()) {
               // ignore: avoid_print
 
-              _formKey.currentState!.save();
+              // _formKey.currentState!.c();
+              // _formKey.currentState!.save();
+
               // ignore: avoid_print
-              print('Login successful ${email} and ${password}');
+              print('Login successful ${emailController.text} and ${passwordController.text}');
               // ignore: avoid_print
               // print('Time to post $email and $password to my API');
             }
